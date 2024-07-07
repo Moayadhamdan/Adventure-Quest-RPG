@@ -1,5 +1,4 @@
 ﻿using System;
-
 namespace AdventureQuestRPG
 {
     public class BattleSystem
@@ -21,12 +20,10 @@ namespace AdventureQuestRPG
             {
                 player.DisplayInfo();
                 enemy.DisplayInfo();
-
                 while (player.Health > 0 && enemy.Health > 0)
                 {
                     Console.WriteLine("Player's turn:");
                     Attack(player, enemy);
-
                     if (enemy.Health <= 0)
                     {
                         Console.WriteLine("You have defeated the monster!");
@@ -34,10 +31,8 @@ namespace AdventureQuestRPG
                         Console.WriteLine($"{player.Name} leveled up to level {player.Level}!");
                         break;
                     }
-
                     Console.WriteLine("Enemy's turn:");
                     enemy.Attack(player);
-
                     if (player.Health <= 0)
                     {
                         Console.WriteLine("You have been defeated by the monster!");
