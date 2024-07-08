@@ -39,10 +39,13 @@ public class Adventure
             Run();
             if (player.Health <= 0)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Game over!");
+                Console.ResetColor();
                 break;
             }
         }
+
         Console.WriteLine("Adventure complete!");
     }
     public void displayActions()
@@ -71,10 +74,11 @@ public class Adventure
                 endtGame();
                 break;
             default:
+                Console.WriteLine("Invalid Input!");
                 break;
         }
     }
-    public void discoverNewLocation()
+    public string discoverNewLocation()
     {
         Console.WriteLine("Please Select a location from the following list:");
         for (int i = 0; i < locations.Count; i++)
@@ -90,6 +94,7 @@ public class Adventure
         {
             Console.WriteLine("Invalid location. Please try again.");
         }
+        return currentLocation;
     }
     public void attackMonster()
     {
@@ -98,7 +103,9 @@ public class Adventure
         if (availableMonsters.Count > 0)
         {
             Monster selectedMonster = availableMonsters[rand.Next(availableMonsters.Count)];
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine($"Randomly selected monster: {selectedMonster.Name}");
+            Console.ResetColor();
             battleSystem.startBattle(player, selectedMonster);
             if (selectedMonster.Health <= 0)
             {
@@ -108,7 +115,9 @@ public class Adventure
         }
         else
         {
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Congratulations! You have defeated all the monsters!");
+            Console.ResetColor();
             Environment.Exit(0);
         }
     }
@@ -143,7 +152,9 @@ public class Adventure
     }
     public static void endtGame()
     {
+        Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine("The End!");
+        Console.ResetColor();
         Environment.Exit(0);
     }
 }

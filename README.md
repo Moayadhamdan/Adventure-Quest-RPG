@@ -1,73 +1,75 @@
 # Adventure Quest RPG
 
 ## Overview
-Adventure Quest RPG is a console-based adventure game where players can go on an epic journey, battle monsters, and explore dungeons. The game is developed using C# in Visual Studio 2022.
+Adventure Quest RPG is a console-based adventure game developed in C# using Visual Studio 2022. In this game, players embark on a thrilling journey, battle various monsters, and explore dungeons to complete their quest.
 
 ## Collaboration
-This lab was made in collaboration with my colleague [Aya Alwahidi](https://github.com/AyaAl-wahidi).
+This project was a collaboration between myself and [Aya Alwahidi](https://github.com/AyaAl-wahidi).
 
-## Lab Specifications
+## Project Components
 
 ### Main Method (Program.cs)
-- **Logic**:
-  - Create instances of the Player and a Monster.
-  - Call the `StartBattle()` method.
-  - Display "Adventure complete!" if you successfully complete the game (defeating the monsters).
+- **Initialization**:
+  - Creates a new instance of the Player and initializes the adventure.
 
 ### Character Classes
-- **Player Class**:
-  - Represents the player-controlled character.
-  - Properties: `Name`, `Health`, `AttackPower`, `Defense`, `Level`, and `Experience`.
-  - Methods: `GainExperience(int amount)`, `LevelUp()`, and `DisplayInfo()`.
 
-- **Monster Class**:
-  - Abstract base class representing monsters in the game.
-  - Properties: `Name`, `Health`, `AttackPower`, and `Defense`.
-  - Abstract method: `Attack(Player player)` (optional for extending monster types with unique attacks).
-  - Method: `DisplayInfo()`.
+#### Player Class
+- Represents the player-controlled character with attributes such as `Name`, `Health`, `AttackPower`, `Defense`, `Level`, and `Experience`.
+- Methods include `GainExperience(int amount)`, `LevelUp()`, and `DisplayInfo()`.
 
-- **Zombi Class**:
-  - Inherits from `Monster`.
-  - Implements the `Attack(Player player)` method.
+#### Monster Classes
+- **Monster (Abstract Base Class)**:
+  - Base class for all monsters with properties `Name`, `Health`, `AttackPower`, and `Defense`.
+  - Implements `DisplayInfo()` method.
 
-### Attack Method (BattleSystem.cs)
-- **Attack Method**:
-  - Simulates an attack between two battle classes.
-  - Parameters: attacker and target.
-  - Calculates and applies damage, ensuring it is never negative.
-  - Reduces the target's health by the calculated damage amount.
-  - Displays attack details including names, damage dealt, and updated health.
+- **Individual Monsters**:
+  - Subclasses like `Zombi`, `BossMonster`, `Dragon`, `Demon`, `Vampire`, `Ghost`, and `Ogre` inherit from `Monster` with specific attributes and behaviors.
 
-### StartBattle Method (BattleSystem.cs)
-- **StartBattle Method**:
-  - Initiates a battle between a player character and an enemy monster.
-  - Parameters: player character (player) and enemy monster (enemy).
-  - Displays player and monster information before the start of the fight.
-  - Enters a loop that continues as long as the player or the enemy has health greater than zero.
-  - Handles player and enemy turns by calling the `Attack` method.
-  - Displays victory or defeat messages and ends the battle accordingly.
+### Battle System (BattleSystem.cs)
 
-### Leveling System
-- **GainExperience Method**:
-  - Player gains experience points from defeating monsters.
-  - Experience threshold for leveling up: `Level * 100`.
-  - Calls `LevelUp()` when the experience threshold is reached.
+#### Attack Method
+- **Attack(IBattleStates attacker, IBattleStates target)**:
+  - Simulates an attack between two battle participants.
+  - Calculates damage and updates the target's health based on the attacker's attack power and target's defense.
 
-- **LevelUp Method**:
-  - Increases player's level.
-  - Resets experience to 0.
-  - Increases player's health, attack power, and defense.
-  - Displays level-up message.
+#### StartBattle Method
+- **startBattle(Player player, Monster enemy)**:
+  - Initiates a battle sequence between the player and a specified enemy monster.
+  - Displays combat information and alternates turns between player and enemy until one is defeated.
 
-### Multi-Round Battles
-- The game allows multiple rounds of battles.
-- After each victory, the player is prompted to continue fighting or quit.
-- The player's health is restored based on their current level at the start of each new round.
+### Leveling and Experience System
 
-### Error Handling
-- Handles exceptions during the game.
-- Ensures input validation to prevent unexpected behavior.
+#### GainExperience Method
+- **GainExperience(int amount)**:
+  - Adds experience points to the player and triggers a level up when the experience threshold (`Level * 100`) is reached.
 
-### XUnit Tests
-- Tests for `Attack` method to ensure it correctly reduces the target's health (for both player and enemy).
-- Asserts that the winner's health is greater than zero after winning the battle.
+#### LevelUp Method
+- **LevelUp()**:
+  - Increases player's level and enhances attributes such as health, attack power, and defense.
+  - Clears the list of defeated monsters and displays a level-up message.
+
+### Game Features
+
+- **Inventory Management**:
+  - Allows the player to manage collected items including weapons, armor, and potions.
+  - Provides options to use items from the inventory during gameplay.
+
+- **Exploration and Location**
+  - Players can explore different locations such as "Forest", "Cave", "Town", "City", and "Island".
+  - The game dynamically updates the current location and offers choices for exploration.
+
+### Error Handling and Input Validation
+
+- Ensures robust error handling throughout the game to manage unexpected inputs and exceptions.
+- Validates user inputs to prevent unintended behavior and maintain game stability.
+
+### Testing
+
+- Includes unit tests using XUnit to verify the functionality of critical methods such as attacking, leveling up, and inventory management.
+- Ensures that expected game behaviors are consistent and reliable across different scenarios.
+
+### Conclusion
+
+Adventure Quest RPG provides an engaging gameplay experience with strategic battles, character progression, and exploration of diverse locations. Immerse yourself in this epic adventure and conquer the challenges that await!
+

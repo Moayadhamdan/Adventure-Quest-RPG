@@ -15,10 +15,8 @@ namespace AdventureQuestRPG
         {
             Name = name;
             Health = 100;
-            //20
-            AttackPower = 80;
-            //10
-            Defense = 50;
+            AttackPower = 20;
+            Defense = 10;
             Level = 1;
             Experience = 0;
             inventory = new Inventory();
@@ -32,7 +30,7 @@ namespace AdventureQuestRPG
                 LevelUp();
             }
         }
-        private void LevelUp()
+        public void LevelUp()
         {
             Level++;
             Experience = 0;
@@ -40,7 +38,9 @@ namespace AdventureQuestRPG
             AttackPower += 5;
             Defense += 2;
             DefeatedMonsters.Clear();
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"Congratulations! {Name} has reached level {Level}.");
+            Console.ResetColor();
         }
         public void DisplayInfo()
         {
@@ -109,10 +109,11 @@ namespace AdventureQuestRPG
     public class Zombi : Monster
     {
         public Zombi() : base("Zombi", 50, 15, 5) { }
+
     }
     public class BossMonster : Monster
     {
-        public BossMonster() : base("BossMonster", 1, 5, 2) { }
+        public BossMonster() : base("BossMonster", 200, 50, 30) { }
     }
     public class Dragon : Monster
     {
