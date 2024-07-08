@@ -4,7 +4,7 @@
 Adventure Quest RPG is a console-based adventure game developed in C# using Visual Studio 2022. In this game, players embark on a thrilling journey, battle various monsters, and explore dungeons to complete their quest.
 
 ## Collaboration
-This project was a collaboration between myself and [Aya Alwahidi](https://github.com/AyaAl-wahidi).
+This lab was made in collaboration with my colleague [Aya Alwahidi](https://github.com/AyaAl-wahidi).
 
 ## Project Components
 
