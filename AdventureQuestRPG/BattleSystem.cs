@@ -9,7 +9,9 @@ namespace AdventureQuestRPG
             damage = damage > 0 ? damage : 0;
             target.Health -= damage;
             target.Health = target.Health < 0 ? 0 : target.Health;
+            Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine($"{attacker.Name} attacks {target.Name} for {damage} damage. {target.Name} now has {target.Health} health.");
+            Console.ResetColor();
         }
         public void startBattle(Player player, Monster enemy)
         {
@@ -23,7 +25,9 @@ namespace AdventureQuestRPG
                     Attack(player, enemy);
                     if (enemy.Health <= 0)
                     {
+                        Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine("You have defeated the monster!");
+                        Console.ResetColor();
                         player.GainExperience(50);
                         Console.WriteLine($"{player.Name},You are in level : {player.Level}");
                         handleDroppedItems(player);
@@ -33,7 +37,9 @@ namespace AdventureQuestRPG
                     enemy.Attack(player);
                     if (player.Health <= 0)
                     {
+                        Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("You have been defeated by the monster!");
+                        Console.ResetColor();
                         break;
                     }
                 }
