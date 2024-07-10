@@ -13,6 +13,7 @@ namespace AdventureQuestRPG
             Console.WriteLine($"{attacker.Name} attacks {target.Name} for {damage} damage. {target.Name} now has {target.Health} health.");
             Console.ResetColor();
         }
+
         public void startBattle(Player player, Monster enemy)
         {
             try
@@ -38,7 +39,7 @@ namespace AdventureQuestRPG
                     if (player.Health <= 0)
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("You have been defeated by the monster!");
+                        Console.WriteLine($"You have been defeated by the monster!");
                         Console.ResetColor();
                         break;
                     }
@@ -48,7 +49,9 @@ namespace AdventureQuestRPG
             {
                 Console.WriteLine($"An error occurred: {ex.Message}");
             }
+
         }
+
         public void handleDroppedItems(Player player)
         {
             Random rand = new Random();
@@ -64,6 +67,7 @@ namespace AdventureQuestRPG
                 Console.WriteLine(" ** No item dropped this time.");
             }
         }
+
         public Item randomPickItem()
         {
             Random rand = new Random();
