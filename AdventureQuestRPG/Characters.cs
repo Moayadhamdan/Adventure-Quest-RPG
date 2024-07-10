@@ -15,7 +15,9 @@ namespace AdventureQuestRPG
         {
             Name = name;
             Health = 100;
+            //20
             AttackPower = 20;
+            //10
             Defense = 10;
             Level = 1;
             Experience = 0;
@@ -109,7 +111,6 @@ namespace AdventureQuestRPG
     public class Zombi : Monster
     {
         public Zombi() : base("Zombi", 50, 15, 5) { }
-
     }
     public class BossMonster : Monster
     {

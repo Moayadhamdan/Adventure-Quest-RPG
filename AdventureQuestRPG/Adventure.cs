@@ -1,4 +1,6 @@
 ﻿using AdventureQuestRPG;
+using System.Text.Json;
+
 public class Adventure
 {
     private Player player;
@@ -6,6 +8,8 @@ public class Adventure
     public List<Monster> monsters;
     public List<string> locations;
     public string currentLocation;
+    private bool gameLoaded = false;
+
     public Adventure(Player player)
     {
         this.player = player;
@@ -20,6 +24,7 @@ public class Adventure
         new Ogre(),
         new Ghost()
         };
+
         locations = new List<string>
         {
             "Forest",
@@ -30,32 +35,45 @@ public class Adventure
         };
         currentLocation = "Town";
     }
+
     public void startGame()
     {
-        while (true)
+        if (gameLoaded)
         {
-            Console.WriteLine($"\n \nYou are currently in {currentLocation} location");
-            displayActions();
+            gameLoaded = false;
+            Console.WriteLine($"Resuming game from {currentLocation}...");
             Run();
-            if (player.Health <= 0)
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Game over!");
-                Console.ResetColor();
-                break;
-            }
         }
-
-        Console.WriteLine("Adventure complete!");
+        else
+        {
+            while (true)
+            {
+                Console.WriteLine($"\n\nYou are currently in {currentLocation} location");
+                displayActions();
+                Run();
+                if (player.Health <= 0)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Game over!");
+                    Console.ResetColor();
+                    break;
+                }
+            }
+            Console.WriteLine("Adventure complete!");
+        }
     }
+
     public void displayActions()
     {
         Console.WriteLine("Please Choose an action:");
         Console.WriteLine("1. Discover a new location");
         Console.WriteLine("2. Attack the Monster");
         Console.WriteLine("3. View The Inventory");
-        Console.WriteLine("4. End The Game");
+        Console.WriteLine("4. Save Game");
+        Console.WriteLine("5. Load Game");
+        Console.WriteLine("6. End The Game");
     }
+
     public void Run()
     {
         int input = Convert.ToInt16(Console.ReadLine());
@@ -71,6 +89,12 @@ public class Adventure
                 manageInventory();
                 break;
             case 4:
+                SaveGame();
+                break;
+            case 5:
+                LoadGame();
+                break;
+            case 6:
                 endtGame();
                 break;
             default:
@@ -78,6 +102,7 @@ public class Adventure
                 break;
         }
     }
+
     public string discoverNewLocation()
     {
         Console.WriteLine("Please Select a location from the following list:");
@@ -96,6 +121,7 @@ public class Adventure
         }
         return currentLocation;
     }
+
     public void attackMonster()
     {
         Random rand = new Random();
@@ -121,6 +147,7 @@ public class Adventure
             Environment.Exit(0);
         }
     }
+
     public void manageInventory()
     {
         player.inventory.displayInventory();
@@ -150,6 +177,44 @@ public class Adventure
             }
         }
     }
+
+    public void SaveGame()
+    {
+        GameState gameState = new GameState
+        {
+            Player = this.player,
+            CurrentLocation = this.currentLocation
+        };
+
+        string json = JsonSerializer.Serialize(gameState);
+        File.WriteAllText("gameFile.json", json);
+        Console.WriteLine("Game saved successfully!");
+    }
+
+    public void LoadGame()
+    {
+        try
+        {
+            if (File.Exists("gameFile.json"))
+            {
+                string json = File.ReadAllText("gameFile.json");
+                GameState gameState = JsonSerializer.Deserialize<GameState>(json);
+                this.player = gameState.Player;
+                this.currentLocation = gameState.CurrentLocation;
+                Console.WriteLine("Game loaded successfully!");
+                gameLoaded = true;
+            }
+            else
+            {
+                Console.WriteLine("You don't have game saved yet, \nYou should select save game from the actions list!");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Failed to load game: {ex.Message}");
+        }
+    }
+
     public static void endtGame()
     {
         Console.ForegroundColor = ConsoleColor.Red;

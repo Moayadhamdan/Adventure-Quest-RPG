@@ -12,11 +12,13 @@ namespace AdventureQuestRPG
         {
             Items = new List<Item>();
         }
+
         public void addItem(Item item)
         {
             Items.Add(item);
             Console.WriteLine($" ** The {item.Name} has been added to player inventory");
         }
+
         public void removeItem(Item item)
         {
             if (Items.Contains(item))
@@ -28,6 +30,7 @@ namespace AdventureQuestRPG
                 Console.WriteLine("Item not found in your inventory.");
             }
         }
+
         public void displayInventory()
         {
             if (Items.Count == 0)
